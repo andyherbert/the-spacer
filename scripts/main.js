@@ -3,7 +3,6 @@ import { clear, copyBuffer, nextFrame, drawPinkText, drawBrightText, drawHalfBri
 import { Tunnel } from './tunnel.js';
 import { Starfield } from './starfield.js';
 import { Timer, frameToTimeString } from './timer.js';
-import { drawOverlay } from './overlay.js';
 import { Turner } from './turner.js';
 import { Ship } from './ship.js';
 import { Explosion } from './explosion.js';

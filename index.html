@@ -12,9 +12,11 @@
         drawOverlay();
         drawBrightText('CLICK ME TO START', (width - 8 * 17) / 2, (height - 8) / 2);
         function mousedown(event) {
+            clear();
+            copyBuffer();
+            drawBrightText('PLEASE WAIT...', (width - 8 * 14) / 2, (height - 8) / 2);
             document.removeEventListener('mousedown', mousedown);
             import('./scripts/main.js');
-            event.preventDefault();
         }
         document.addEventListener('mousedown', mousedown);
     </script>

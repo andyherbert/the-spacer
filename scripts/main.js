@@ -13,7 +13,6 @@ async function startScreen(starfield, highScore, started = false) {
     let startTimer = 0;
     let pressStartTimer = 0;
     let yCount = 8;
-    // eslint-disable-next-line no-constant-condition
     while (true) {
         clear();
         starfield.ticSlow();
@@ -66,7 +65,6 @@ async function titleScreen(starfield, highScore) {
     const introText = "IT IS 202X.\n\nA MYSTERIOUS PILOT\nMUST TRAVEL OVER\nINFINITE SPACE\nFOR UNSPECIFIED\nREASONS.\n\nTHEY CALL HIM...";
     let introTextTimer = 0;
     introMusic.play();
-    // eslint-disable-next-line no-constant-condition
     while (true) {
         if (keys.enter || gamepadStart()) {
             introMusic.pause();
@@ -145,7 +143,6 @@ async function inGame(starfield) {
     let gameOver = false;
     let pause = false;
     inGameMusic.play();
-    // eslint-disable-next-line no-constant-condition
     while (true) {
         clear();
         if (keys.enter) {
@@ -226,12 +223,10 @@ async function boot() {
     }
 }
 
-drawOverlay();
 await boot();
 
 let starfield = new Starfield();
 let highScore = 0;
-// eslint-disable-next-line no-constant-condition
 while (true) {
     await titleScreen(starfield, highScore);
     const score = await inGame(starfield);

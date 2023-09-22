@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SPACER</title>
+    <script type="module">
+        import  { clear, copyBuffer, drawBrightText, width, height } from './scripts/canvas.js';
+        import { drawOverlay } from './scripts/overlay.js';
+        clear();
+        copyBuffer();
+        drawOverlay();
+        drawBrightText('CLICK ME TO START', (width - 8 * 17) / 2, (height - 8) / 2);
+        function mousedown(event) {
+            document.removeEventListener('mousedown', mousedown);
+            import('./scripts/main.js');
+            event.preventDefault();
+        }
+        document.addEventListener('mousedown', mousedown);
+    </script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="container">
+        <canvas id='viewport' width="160" height="144"></canvas>
+        <canvas id='overlay' width="640" height="576"></canvas>
+    </div>
+</body>
+</html>

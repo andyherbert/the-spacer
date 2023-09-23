@@ -4,7 +4,7 @@ const height = canvas.height;
 const ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 const imageData = ctx.getImageData(0, 0, width, height);
-const fade = [16, 16, 16, 64];
+const fade = [0, 0, 0, 43];
 
 function putPixel(x, y, [r, g, b, a]) {
     const index = (x + y * width) * 4;
@@ -21,7 +21,6 @@ export function line([x0, y0], [x1, y1], color) {
     const sy = (y0 < y1) ? 1 : -1;
     let err = ((dx > dy) ? dx : -dy) / 2;
     let e2;
-    // eslint-disable-next-line no-constant-condition
     while (true) {
         putPixel(x0, y0, color);
         if (x0 == x1 && y0 == y1) return;
@@ -38,10 +37,10 @@ export function line([x0, y0], [x1, y1], color) {
 }
 
 export function drawOverlay() {
-    for (let i = 0; i < width; i += 4) {
+    for (let i = 0; i < width; i += 3) {
         line([i, 0], [i, height], fade);
     }
-    for (let i = 0; i < height; i += 4) {
+    for (let i = 0; i < height; i += 3) {
         line([0, i], [width, i], fade);
     }
     ctx.putImageData(imageData, 0, 0);

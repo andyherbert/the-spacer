@@ -1,4 +1,4 @@
-async function loadAudio(url) {
+export async function loadAudio(url) {
     const audio = document.createElement('audio');
     audio.src = url;
     audio.preload = 'auto';

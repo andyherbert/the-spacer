@@ -222,14 +222,15 @@ async function boot() {
     }
 }
 
-await boot();
-
-let starfield = new Starfield();
-let highScore = 0;
-while (true) {
-    await titleScreen(starfield, highScore);
-    const score = await inGame(starfield);
-    if (score > highScore) {
-        highScore = score;
+export async function main() {
+    await boot();
+    let starfield = new Starfield();
+    let highScore = 0;
+    while (true) {
+        await titleScreen(starfield, highScore);
+        const score = await inGame(starfield);
+        if (score > highScore) {
+            highScore = score;
+        }
     }
 }

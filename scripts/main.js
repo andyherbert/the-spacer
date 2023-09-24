@@ -141,6 +141,7 @@ async function inGame(starfield) {
     let controlAngle = 0;
     let gameOver = false;
     let pause = false;
+    let inGameMusicTimer = 0;
     inGameMusic.play();
     while (true) {
         clear();
@@ -186,6 +187,12 @@ async function inGame(starfield) {
                 gameOver = tunnel.draw(p1, p2);
                 timer.tick();
                 ship.draw();
+                inGameMusicTimer += 1;
+                if (inGameMusicTimer == 10980) {
+                    inGameMusic.currentTime = 0;
+                    inGameMusic.play();
+                    inGameMusicTimer = 0;
+                }
             } else {
                 inGameMusic.pause();
                 inGameMusic.currentTime = 0;

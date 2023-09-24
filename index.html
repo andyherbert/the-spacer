@@ -12,7 +12,7 @@
         copyBuffer();
         drawOverlay();
         drawBrightText('CLICK ME TO START', (width - 8 * 17) / 2, (height - 8) / 2);
-        const silentSfx = await loadAudio('./audio/silent.wav');
+        const silentSfx = await loadAudio('./audio/silent.mp3');
         function mousedown(event) {
             document.removeEventListener('mousedown', mousedown);
             clear();

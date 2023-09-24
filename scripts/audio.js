@@ -13,9 +13,9 @@ async function loadLoopedAudio(url) {
     return audio;
 }
 
-export const bootSfx = await loadAudio('./audio/boot.wav');
-export const explosionSfx = await loadAudio('./audio/explosion.wav');
-export const startSfx = await loadAudio('./audio/startsound.wav');
+export const bootSfx = await loadAudio('./audio/boot.mp3');
+export const explosionSfx = await loadAudio('./audio/explosion.mp3');
+export const startSfx = await loadAudio('./audio/startsound.mp3');
 export const introMusic = await loadAudio('./audio/intro.mp3');
 export const inGameMusic = await loadLoopedAudio('./audio/ingame.mp3');
-export const pauseSfx = await loadAudio('./audio/pause.wav');
+export const pauseSfx = await loadAudio('./audio/pause.mp3');

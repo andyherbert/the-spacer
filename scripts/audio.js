@@ -2,7 +2,7 @@ export async function loadAudio(url) {
     const audio = document.createElement('audio');
     audio.src = url;
     audio.preload = 'auto';
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         audio.addEventListener('canplay', () => resolve(audio));
     });
 }

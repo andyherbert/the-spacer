@@ -1,12 +1,21 @@
-import { rotate, drawQuad, width, height, drawTriangle, HALF_BRIGHT, BRIGHT, pointInQuad } from './canvas.js';
+import {
+    rotate,
+    drawQuad,
+    width,
+    height,
+    drawTriangle,
+    HALF_BRIGHT,
+    BRIGHT,
+    pointInQuad,
+} from './canvas.js';
 import { easyGaps, hardGaps, medGaps } from './gaps.js';
 
-const fullGap = "88888888";
+const fullGap = '88888888';
 
 let color = HALF_BRIGHT;
 
 function stringToBoolArray(str, shift = 0) {
-    const boolGaps = str.split("").map(c => c != " ");
+    const boolGaps = str.split('').map((c) => c != ' ');
     for (let i = 0; i < shift; i += 1) {
         boolGaps.unshift(boolGaps.pop());
     }
@@ -84,8 +93,13 @@ class Shape {
     generatePoints(angle) {
         const points = [];
         for (let i = 0; i < this.length; i += 1) {
-            const shapeAngle = i * Math.PI / (this.length / 2);
-            points.push(rotate([width / 2 + this.radius, height / 2], angle + shapeAngle));
+            const shapeAngle = (i * Math.PI) / (this.length / 2);
+            points.push(
+                rotate(
+                    [width / 2 + this.radius, height / 2],
+                    angle + shapeAngle
+                )
+            );
         }
         return points;
     }
@@ -107,7 +121,9 @@ export class Tunnel {
             if (this.gapQueue.length == 0) {
                 this.gapQueue = this.gapGenerator.generate();
             }
-            this.shapes.unshift(new Shape(this.length, 0.5, this.gapQueue.shift()));
+            this.shapes.unshift(
+                new Shape(this.length, 0.5, this.gapQueue.shift())
+            );
         } else {
             this.counter += 1;
         }
@@ -122,7 +138,9 @@ export class Tunnel {
 
     draw(p1, p2) {
         let collision = false;
-        const points = this.shapes.map(shape => shape.generatePoints(this.angle));
+        const points = this.shapes.map((shape) =>
+            shape.generatePoints(this.angle)
+        );
         for (let i = 0; i < points[0].length - 1; i += 1) {
             drawTriangle(
                 points[0][i],

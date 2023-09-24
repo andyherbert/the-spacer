@@ -1,4 +1,4 @@
-import { putPixel, PINK, width, height } from "./canvas.js";
+import { putPixel, PINK, width, height } from './canvas.js';
 
 class PieceOfShip {
     constructor(x, y) {

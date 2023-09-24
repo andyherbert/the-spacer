@@ -1,12 +1,34 @@
 import { keys, gamepadStart, gamepadLeft, gamepadRight } from './keys.js';
-import { clear, copyBuffer, nextFrame, drawPinkText, drawBrightText, drawHalfBrightText, BRIGHT, width, height, PINK, HALF_BRIGHT, fillRect, BLACK, drawBootRing } from './canvas.js';
+import {
+    clear,
+    copyBuffer,
+    nextFrame,
+    drawPinkText,
+    drawBrightText,
+    drawHalfBrightText,
+    BRIGHT,
+    width,
+    height,
+    PINK,
+    HALF_BRIGHT,
+    fillRect,
+    BLACK,
+    drawBootRing,
+} from './canvas.js';
 import { Tunnel } from './tunnel.js';
 import { Starfield } from './starfield.js';
 import { Timer, frameToTimeString } from './timer.js';
 import { Turner } from './turner.js';
 import { Ship } from './ship.js';
 import { Explosion } from './explosion.js';
-import { introMusic, inGameMusic, explosionSfx, startSfx, bootSfx, pauseSfx } from './audio.js';
+import {
+    introMusic,
+    inGameMusic,
+    explosionSfx,
+    startSfx,
+    bootSfx,
+    pauseSfx,
+} from './audio.js';
 
 async function startScreen(starfield, highScore, started = false) {
     let startTimer = 0;
@@ -37,8 +59,8 @@ async function startScreen(starfield, highScore, started = false) {
         }
         const x = (width - 10 * 8) / 2;
         const y = (height - 8) / 2 - 16;
-        drawPinkText("THE SPACER", x, y + 1 + yCount);
-        drawBrightText("THE SPACER", x, y + yCount);
+        drawPinkText('THE SPACER', x, y + 1 + yCount);
+        drawBrightText('THE SPACER', x, y + yCount);
         if (yCount > 0) {
             if (startTimer % 13 == 12) {
                 yCount -= 1;
@@ -46,12 +68,19 @@ async function startScreen(starfield, highScore, started = false) {
             fillRect(x, y + 1 + yCount + (8 - yCount), 10 * 8, yCount, BLACK);
         }
         if (started || startTimer > 60 * 2.5) {
-            drawHalfBrightText("CODE:ANDYH", 5 * 8, 11 * 8);
-            drawHalfBrightText("MUSIC:GENTHRU", 4 * 8, 12 * 8);
+            drawHalfBrightText('CODE:ANDYH', 5 * 8, 11 * 8);
+            drawHalfBrightText('MUSIC:GENTHRU', 4 * 8, 12 * 8);
         }
         if (started || startTimer > 60 * 3.5) {
-            if ((started && (pressStartTimer % 4) < 2) || (!started && (pressStartTimer % 60) < 30)) {
-                drawBrightText("PRESS START", (width - 11 * 8) / 2, (height + 8 * 14) / 2);
+            if (
+                (started && pressStartTimer % 4 < 2) ||
+                (!started && pressStartTimer % 60 < 30)
+            ) {
+                drawBrightText(
+                    'PRESS START',
+                    (width - 11 * 8) / 2,
+                    (height + 8 * 14) / 2
+                );
             }
             pressStartTimer += 1;
         }
@@ -61,7 +90,8 @@ async function startScreen(starfield, highScore, started = false) {
 }
 
 async function titleScreen(starfield, highScore) {
-    const introText = "IT IS 202X.\n\nA MYSTERIOUS PILOT\nMUST TRAVEL OVER\nINFINITE SPACE\nFOR UNSPECIFIED\nREASONS.\n\nTHEY CALL HIM...";
+    const introText =
+        'IT IS 202X.\n\nA MYSTERIOUS PILOT\nMUST TRAVEL OVER\nINFINITE SPACE\nFOR UNSPECIFIED\nREASONS.\n\nTHEY CALL HIM...';
     let introTextTimer = 0;
     introMusic.play();
     while (true) {
@@ -77,7 +107,7 @@ async function titleScreen(starfield, highScore) {
         starfield.draw();
         copyBuffer();
         if (introTextTimer < 14 * 8 * 2) {
-            drawBrightText(introText, 8, height - (introTextTimer / 2), 8);
+            drawBrightText(introText, 8, height - introTextTimer / 2, 8);
         } else if (introTextTimer < 14 * 8 * 4 + 2 * 60) {
             drawBrightText(introText, 8, height - 14 * 8, 8);
         } else if (introTextTimer < 14 * 8 * 4 + 15 * 60) {
@@ -119,7 +149,7 @@ async function gameOverScreen(tunnel, starfield, timer, p3) {
         explosion.draw();
         copyBuffer();
         timer.draw();
-        drawPinkText("GAME OVER", 44, 68);
+        drawPinkText('GAME OVER', 44, 68);
         if (keys.enter || gamepadStart()) {
             explosionSfx.pause();
             explosionSfx.currentTime = 0;
@@ -222,8 +252,8 @@ async function boot() {
             bootSfx.play();
         }
         copyBuffer();
-        drawBootRing((width - 10 * 8) / 2, y -8);
-        drawPinkText("GBJAM 11", (width - 8 * 8) / 2, y);
+        drawBootRing((width - 10 * 8) / 2, y - 8);
+        drawPinkText('GBJAM 11', (width - 8 * 8) / 2, y);
         await nextFrame();
         bootTimer += 1;
     }

@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE SPACER</title>
-    <script type="module">
-        import  { clear, copyBuffer, drawBrightText, width, height } from './scripts/canvas.js';
-        import { drawOverlay } from './scripts/overlay.js';
-        import { loadAudio } from './scripts/audio.js';
-        clear();
-        copyBuffer();
-        drawOverlay();
-        drawBrightText('CLICK ME TO START', (width - 8 * 17) / 2, (height - 8) / 2);
-        const silentSfx = await loadAudio('./audio/silent.mp3');
-        function mousedown(event) {
-            document.removeEventListener('mousedown', mousedown);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>THE SPACER</title>
+        <script type="module">
+            import {
+                clear,
+                copyBuffer,
+                drawBrightText,
+                width,
+                height,
+            } from './scripts/canvas.js';
+            import { drawOverlay } from './scripts/overlay.js';
+            import { loadAudio } from './scripts/audio.js';
             clear();
             copyBuffer();
-            silentSfx.play();
-            drawBrightText('PLEASE WAIT...', (width - 8 * 14) / 2, (height - 8) / 2);
-            import('./scripts/main.js').then(({ main }) => {
-                main();
-            });
-        }
-        document.addEventListener('mousedown', mousedown);
-    </script>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
-    <div id="container">
-        <canvas id='viewport' width="160" height="144"></canvas>
-        <canvas id='overlay' width="480" height="432"></canvas>
-    </div>
-</body>
+            drawOverlay();
+            drawBrightText(
+                'CLICK ME TO START',
+                (width - 8 * 17) / 2,
+                (height - 8) / 2
+            );
+            const silentSfx = await loadAudio('./audio/silent.mp3');
+            function mousedown(event) {
+                document.removeEventListener('mousedown', mousedown);
+                clear();
+                copyBuffer();
+                silentSfx.play();
+                drawBrightText(
+                    'PLEASE WAIT...',
+                    (width - 8 * 14) / 2,
+                    (height - 8) / 2
+                );
+                import('./scripts/main.js').then(({ main }) => {
+                    main();
+                });
+            }
+            document.addEventListener('mousedown', mousedown);
+        </script>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body>
+        <div id="container">
+            <canvas id="viewport" width="160" height="144"></canvas>
+            <canvas id="overlay" width="480" height="432"></canvas>
+        </div>
+    </body>
 </html>

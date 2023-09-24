@@ -1,4 +1,4 @@
-import { drawTriangle, PINK, width, height } from "./canvas.js";
+import { drawTriangle, PINK, width, height } from './canvas.js';
 
 function calcXY(angle, distance) {
     const x = Math.floor(Math.sin(angle) * distance + width / 2);

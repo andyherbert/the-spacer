@@ -16,10 +16,10 @@ function putPixel(x, y, [r, g, b, a]) {
 
 export function line([x0, y0], [x1, y1], color) {
     const dx = Math.abs(x1 - x0);
-    const sx = (x0 < x1) ? 1 : -1;
+    const sx = x0 < x1 ? 1 : -1;
     const dy = Math.abs(y1 - y0);
-    const sy = (y0 < y1) ? 1 : -1;
-    let err = ((dx > dy) ? dx : -dy) / 2;
+    const sy = y0 < y1 ? 1 : -1;
+    let err = (dx > dy ? dx : -dy) / 2;
     let e2;
     while (true) {
         putPixel(x0, y0, color);

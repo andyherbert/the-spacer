@@ -80,7 +80,7 @@ function recolorCanvas(src, [r, g, b]) {
 }
 
 async function loadImage(src) {
-    const image = await new Promise(resolve => {
+    const image = await new Promise((resolve) => {
         const image = new Image();
         image.onload = () => resolve(image);
         image.src = src;
@@ -100,10 +100,7 @@ export function rotate([x, y], angle) {
     const c = Math.cos(angle);
     const px = x - cx;
     const py = y - cy;
-    return [
-        Math.round(px * c - py * s + cx),
-        Math.round(px * s + py * c + cy)
-    ];
+    return [Math.round(px * c - py * s + cx), Math.round(px * s + py * c + cy)];
 }
 
 export function putPixel(x, y, [r, g, b]) {
@@ -130,7 +127,7 @@ export function copyBuffer() {
 
 export async function nextFrame(frames = 1) {
     for (let i = 0; i < frames; i += 1) {
-        await new Promise(resolve => requestAnimationFrame(resolve));
+        await new Promise((resolve) => requestAnimationFrame(resolve));
     }
 }
 
@@ -176,7 +173,13 @@ function fillTopFlatTriangle(v1, v2, v3, color) {
 
 export function drawTriangle(v1, v2, v3, color) {
     const vertices = [v1, v2, v3].sort((a, b) => a[1] - b[1]);
-    const v4 = [vertices[0][0] + (vertices[1][1] - vertices[0][1]) * (vertices[2][0] - vertices[0][0]) / (vertices[2][1] - vertices[0][1]), vertices[1][1]];
+    const v4 = [
+        vertices[0][0] +
+            ((vertices[1][1] - vertices[0][1]) *
+                (vertices[2][0] - vertices[0][0])) /
+                (vertices[2][1] - vertices[0][1]),
+        vertices[1][1],
+    ];
     fillBottomFlatTriangle(vertices[0], vertices[1], v4, color);
     fillTopFlatTriangle(vertices[1], v4, vertices[2], color);
 }
@@ -192,8 +195,18 @@ function pointInBottomFlatTriangle([x1, y1], [x2, y2], v1, v2, v3) {
     let curx1 = v1[0];
     let curx2 = v1[0];
     for (let scanlineY = v1[1]; scanlineY <= v2[1]; scanlineY += 1) {
-        if (scanlineY == y1 && x1 >= Math.round(curx1) && x1 <= Math.round(curx2)) return true;
-        if (scanlineY == y2 && x2 >= Math.round(curx1) && x2 <= Math.round(curx2)) return true;
+        if (
+            scanlineY == y1 &&
+            x1 >= Math.round(curx1) &&
+            x1 <= Math.round(curx2)
+        )
+            return true;
+        if (
+            scanlineY == y2 &&
+            x2 >= Math.round(curx1) &&
+            x2 <= Math.round(curx2)
+        )
+            return true;
         curx1 += invslope1;
         curx2 += invslope2;
     }
@@ -206,8 +219,18 @@ function pointInTopFlatTriangle([x1, y1], [x2, y2], v1, v2, v3) {
     let curx1 = v3[0];
     let curx2 = v3[0];
     for (let scanlineY = v3[1]; scanlineY > v1[1]; scanlineY--) {
-        if (scanlineY == y1 && x1 >= Math.round(curx1) && x1 <= Math.round(curx2)) return true;
-        if (scanlineY == y2 && x2 >= Math.round(curx1) && x2 <= Math.round(curx2)) return true;
+        if (
+            scanlineY == y1 &&
+            x1 >= Math.round(curx1) &&
+            x1 <= Math.round(curx2)
+        )
+            return true;
+        if (
+            scanlineY == y2 &&
+            x2 >= Math.round(curx1) &&
+            x2 <= Math.round(curx2)
+        )
+            return true;
         curx1 -= invslope1;
         curx2 -= invslope2;
     }
@@ -216,14 +239,24 @@ function pointInTopFlatTriangle([x1, y1], [x2, y2], v1, v2, v3) {
 
 export function pointsInTriangle(p1, p2, v1, v2, v3) {
     const vertices = [v1, v2, v3].sort((a, b) => a[1] - b[1]);
-    const v4 = [vertices[0][0] + (vertices[1][1] - vertices[0][1]) * (vertices[2][0] - vertices[0][0]) / (vertices[2][1] - vertices[0][1]), vertices[1][1]];
-    return pointInBottomFlatTriangle(p1, p2, vertices[0], vertices[1], v4) ||
-        pointInTopFlatTriangle(p1, p2, vertices[1], v4, vertices[2]);
+    const v4 = [
+        vertices[0][0] +
+            ((vertices[1][1] - vertices[0][1]) *
+                (vertices[2][0] - vertices[0][0])) /
+                (vertices[2][1] - vertices[0][1]),
+        vertices[1][1],
+    ];
+    return (
+        pointInBottomFlatTriangle(p1, p2, vertices[0], vertices[1], v4) ||
+        pointInTopFlatTriangle(p1, p2, vertices[1], v4, vertices[2])
+    );
 }
 
 export function pointInQuad(p1, p2, v1, v2, v3, v4) {
-    return pointsInTriangle(p1, p2, v1, v2, v3) ||
-        pointsInTriangle(p1, p2, v1, v3, v4);
+    return (
+        pointsInTriangle(p1, p2, v1, v2, v3) ||
+        pointsInTriangle(p1, p2, v1, v3, v4)
+    );
 }
 
 export function drawBootRing(x, y) {
